@@ -1,0 +1,40 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+mainClassName = 'com.bahamut1797.smtp.Main'
+// JDK 7
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+   mavenLocal()
+   mavenCentral()
+   maven {
+        url "http://maven.vaadin.com/vaadin-addons"
+        url "https://mvnrepository.com/artifact/javax.mail/javax.mail-api"
+    }
+}
+
+dependencies {
+	// https://mvnrepository.com/artifact/com.sun.mail/javax.mail
+	compile group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+}
+
+task "create-dirs" {
+	doLast{
+       sourceSets*.java.srcDirs*.each { it.mkdirs() }
+       sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+    }
+}
+
+task fatJar(type: Jar) {
+	manifest {
+		attributes 'Implementation-Title': 'Java SMTP Service', 
+		'Implementation-Version': '1.0',
+		'Main-Class': 'com.bahamut1797.smtp.Main'
+	}
+	baseName = project.name + '-all'
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+	with jar
+}
