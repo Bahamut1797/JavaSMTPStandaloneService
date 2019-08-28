@@ -34,7 +34,7 @@ task fatJar(type: Jar) {
 		'Implementation-Version': '1.0',
 		'Main-Class': 'com.bahamut1797.smtp.Main'
 	}
-	baseName = project.name + '-all'
+	baseName = project.name
 	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 	with jar
 }

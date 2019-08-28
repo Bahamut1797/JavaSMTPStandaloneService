@@ -43,7 +43,7 @@ public class Main {
 			if (!smtpFile.exists()) {
 				System.out.println("File \"defaultSMTP.conf\" not found. Run with \"configure\" command to create it.");
 				System.out.println("Run \"help\" command for more information.");
-				System.exit(107);
+				System.exit(101);
 			}
 			
 			// Run the service
@@ -51,7 +51,7 @@ public class Main {
 		} else {
 			// HELP Command
 			if (args[0].equalsIgnoreCase("help")) {
-				System.out.println("Read a file <filePaht> as a parameter, if you omitted, reads the file created by \"configure\" command called \"defaultSMTP.conf\".");
+				System.out.println("Read a file <filePath> as a parameter, if you omitted, reads the file created by \"configure\" command called \"defaultSMTP.conf\".");
 				System.out.println("The configuration parameters for SMTP comunication file are:");
 				System.out.println("SMTP_HOST PORT");
 				System.out.println("TO_EMAIL,TO_EMAIL2,...<space>[TO_EMAIL_CC,TO_EMAIL_CC2,...]<space>[TO_EMAIL_BCC,TO_EMAIL_BCC2,...]");
@@ -67,9 +67,9 @@ public class Main {
 				System.out.println("configure\tAn assistant to help you to create a configuration file for SMTP service.");
 				System.out.println("");
 				System.out.println("Exit error codes:");
-				System.out.println("107 - File <fileName> not found.");
-				System.out.println("108 - I/O Error");
-				System.out.println("110 - Mail not sent + error msg");
+				System.out.println("101 - File <fileName> not found.");
+				System.out.println("102 - I/O Error");
+				System.out.println("103 - Mail not sent - <error_msg>");
 
 				System.exit(0);
 			} else if (args[0].equalsIgnoreCase("configure")) { // CONFIGURE Command
@@ -78,7 +78,7 @@ public class Main {
 				File smtpFile = new File(args[0]);
 				if (!smtpFile.exists()) {
 					System.out.println("File \"" + args[0] + "\" not found.");
-					System.exit(107);
+					System.exit(101);
 				}
 				
 				// Run the service
@@ -192,7 +192,7 @@ public class Main {
 
 		} catch (IOException e) {
 			System.out.println("I/O Error \n" + e.getMessage());
-			System.exit(108);
+			System.exit(102);
 		}
 	}
 
@@ -282,10 +282,10 @@ public class Main {
 
 		} catch (FileNotFoundException e) {
 			System.out.println("File \"" +  smtpFile.getName() + "\" not found.");
-			System.exit(107);
+			System.exit(101);
 		} catch (IOException e) {
 			System.out.println("I/O Error: \n" + e.getMessage());
-			System.exit(108);
+			System.exit(102);
 		}
 	}
 
@@ -327,7 +327,7 @@ public class Main {
 			Transport.send(msg);
 		} catch (MessagingException | UnsupportedEncodingException e) {
 			System.out.println("Error: Mail not sent - " + e.getMessage());
-			System.exit(110);
+			System.exit(103);
 		}
 	}
 
@@ -394,10 +394,10 @@ public class Main {
 
 		} catch (MessagingException e) {
 			System.out.println("Error: Mail not sent - " + e.getMessage());
-			System.exit(110);
+			System.exit(103);
 		} catch (UnsupportedEncodingException e) {
 			System.out.println("Error: Mail not sent - " + e.getMessage());
-			System.exit(110);
+			System.exit(103);
 		}
 	}
 
